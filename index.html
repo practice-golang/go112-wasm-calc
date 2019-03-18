@@ -31,7 +31,6 @@ license that can be found in the LICENSE file.
 		WebAssembly.instantiateStreaming(fetch("calc.wasm"), go.importObject).then((result) => {
 			mod = result.module;
 			inst = result.instance;
-			document.getElementById("runButton").disabled = false;
 			run()
 		}).catch((err) => {
 			console.error(err);
@@ -45,25 +44,71 @@ license that can be found in the LICENSE file.
 	</script>
 
 	<input type="text" id="value1" />
+	<span id="op">..</span>
 	<input type="text" id="value2" />
+	<span id="eq">=</span>
 	<input type="text" id="result">
 
-	<button onClick="run();" id="runButton" disabled>Run</button>
-	<button onClick="adder('value1', 'value2', 'result');" id="addButton">Add</button>
-	<button onClick="subtract('value1', 'value2', 'result');" id="subtractButton">Subtract</button>
+	<hr>
+
+	<button onClick="addition();" id="addButton">Add</button>
+	<button onClick="subtraction();" id="subButton">Subtraction</button>
+	<button onClick="multiplication();" id="multiButton">Multiplication</button>
+	<button onClick="division();" id="divButton">Division</button>
 </body>
 
 <script>
-	async function adder(a, b, c) {
-		let values = [2, 1]
-		// let newValues = values.slice()
-		// let result = await add(newValues)
+	async function addition(a, b, c) {
+		document.getElementById("op").innerHTML = "+"
+
+		let value1 = document.getElementById("value1").value
+		let value2 = document.getElementById("value2").value
+
+		let values = [value1, value2]
+
 		let result = await add(...values)
-		let result2 = await add2(3, 4)
+
 		document.getElementById("result").value = result
-		alert(result2)
 	}
 
+	async function subtraction(a, b, c) {
+		document.getElementById("op").innerHTML = "-"
+
+		let value1 = document.getElementById("value1").value
+		let value2 = document.getElementById("value2").value
+
+		let values = [value1, value2]
+
+		let result = await sub(...values)
+
+		document.getElementById("result").value = result
+	}
+
+	async function multiplication(a, b, c) {
+		document.getElementById("op").innerHTML = "*"
+
+		let value1 = document.getElementById("value1").value
+		let value2 = document.getElementById("value2").value
+
+		let values = [value1, value2]
+
+		let result = await multi(...values)
+
+		document.getElementById("result").value = result
+	}
+
+	async function division(a, b, c) {
+		document.getElementById("op").innerHTML = "/"
+
+		let value1 = document.getElementById("value1").value
+		let value2 = document.getElementById("value2").value
+
+		let values = [value1, value2]
+
+		let result = await divi(...values)
+
+		document.getElementById("result").value = result
+	}
 </script>
 
 </html>
